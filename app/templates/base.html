@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MindTrack{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('main.index') }}" class="brand">MindTrack</a>
+        <div class="nav-links">
+            <a href="{{ url_for('main.index') }}">Log Entry</a>
+            <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+        </div>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>MindTrack &mdash; built for SDG 3: Good Health and Well-being</p>
+    </footer>
+</body>
+</html>

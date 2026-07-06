@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Log Entry — MindTrack{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>How are you today?</h1>
+    <p class="subtitle">Log your mood, sleep, and activity in under a minute.</p>
+
+    <form method="POST" action="{{ url_for('main.index') }}">
+        <label for="mood">Mood (1–10)</label>
+        <input type="range" id="mood" name="mood" min="1" max="10" value="5"
+               oninput="moodValue.innerText = this.value">
+        <output id="moodValue">5</output>
+
+        <label for="sleep_hours">Hours of sleep</label>
+        <input type="number" id="sleep_hours" name="sleep_hours" min="0" max="24"
+               step="0.5" value="7" required>
+
+        <label class="checkbox-label">
+            <input type="checkbox" id="exercised" name="exercised">
+            I exercised today
+        </label>
+
+        <label for="notes">Notes (optional)</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="Anything on your mind..."></textarea>
+
+        <button type="submit">Save Entry</button>
+    </form>
+</div>
+{% endblock %}

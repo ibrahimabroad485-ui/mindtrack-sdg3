@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — MindTrack{% endblock %}
+
+{% block content %}
+<h1>Your Wellness Dashboard</h1>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-value">{{ summary.avg_mood if summary.avg_mood is not none else "—" }}</span>
+        <span class="stat-label">Avg Mood</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value">{{ summary.avg_sleep if summary.avg_sleep is not none else "—" }}</span>
+        <span class="stat-label">Avg Sleep (hrs)</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value">{{ summary.exercise_rate if summary.exercise_rate is not none else "—" }}%</span>
+        <span class="stat-label">Exercise Rate</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value">{{ summary.streak }}</span>
+        <span class="stat-label">Day Streak</span>
+    </div>
+</div>
+
+<div class="insight-banner">
+    {{ summary.insight }}
+</div>
+
+{% if chart %}
+<div class="card">
+    <img src="data:image/png;base64,{{ chart }}" alt="Mood trend chart" class="chart-img">
+</div>
+{% else %}
+<div class="card">
+    <p>No entries yet. <a href="{{ url_for('main.index') }}">Log your first one</a>.</p>
+</div>
+{% endif %}
+
+{% if entries %}
+<div class="card">
+    <h2>Recent Entries</h2>
+    <table class="entries-table">
+        <thead>
+            <tr><th>Date</th><th>Mood</th><th>Sleep</th><th>Exercised</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+            {% for e in entries %}
+            <tr>
+                <td>{{ e.entry_date.strftime('%b %d, %Y') }}</td>
+                <td>{{ e.mood }}</td>
+                <td>{{ e.sleep_hours }}h</td>
+                <td>{{ "Yes" if e.exercised else "No" }}</td>
+                <td>{{ e.notes or "—" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
